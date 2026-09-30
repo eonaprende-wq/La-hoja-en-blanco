@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>La hoja en blanco · Eon Aprende</title>
+<meta name="description" content="Estudiar para saber, no para sentir que sabes. Guía interactiva de Eon Aprende.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=Caveat:wght@600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --y:#FFFD37;          /* amarillo Eon */
+  --ink:#161616;        /* negro carbón */
+  --ink-2:#222222;
+  --ink-3:#2e2e2e;
+  --paper:#FAFAF6;      /* blanco inteligente */
+  --paper-2:#F0F0EA;
+  --muted:#5f5f5a;
+  --muted-d:#a8a8a0;
+  --line:rgba(22,22,22,.14);
+  --line-d:rgba(250,250,246,.14);
+  --ok:#1f9d55;
+  --bad:#d64532;
+  --r:18px;
+  --maxw:1120px;
+  --head:'Space Grotesk',system-ui,sans-serif;
+  --body:'Inter',system-ui,sans-serif;
+  --hand:'Caveat',cursive;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:var(--body);background:var(--paper);color:var(--ink);line-height:1.6;font-size:17px;overflow-x:hidden}
+img,svg{max-width:100%;display:block}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+::selection{background:var(--y);color:var(--ink)}
+:focus-visible{outline:3px solid var(--y);outline-offset:3px;border-radius:6px}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 16px}
+@media(min-width:720px){.wrap{padding:0 32px}}
+
+/* ---------- barra de progreso + nav ---------- */
+#progress{position:fixed;top:0;left:0;height:4px;width:0;background:var(--y);z-index:100;box-shadow:0 0 0 1px var(--ink)}
+nav.top{position:sticky;top:0;z-index:90;background:rgba(22,22,22,.94);backdrop-filter:blur(10px);color:var(--paper);border-bottom:1px solid var(--line-d)}
+nav.top .wrap{display:flex;align-items:center;gap:16px;height:60px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit;flex-shrink:0}
+.brand-mark{width:30px;height:30px;border-radius:50%;background:var(--y);display:grid;place-items:center;color:var(--ink);font:700 17px/1 var(--head)}
+.brand-name{font:700 17px/1 var(--head);letter-spacing:-.01em}
+.brand-name span{font-weight:500;opacity:.7}
+.chips{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;margin-left:auto}
+.chips::-webkit-scrollbar{display:none}
+.chips a{white-space:nowrap;text-decoration:none;color:var(--paper);font-size:13.5px;font-weight:600;padding:7px 12px;border-radius:99px;border:1px solid var(--line-d);transition:.2s}
+.chips a:hover,.chips a.active{background:var(--y);color:var(--ink);border-color:var(--y)}
+
+/* ---------- tipografía ---------- */
+h1,h2,h3,h4{font-family:var(--head);letter-spacing:-.025em;line-height:1.08}
+h2{font-size:clamp(32px,5.4vw,58px)}
+h3{font-size:clamp(22px,3vw,30px);margin-bottom:10px}
+h4{font-size:19px;margin-bottom:6px}
+p+p{margin-top:12px}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font:700 13px/1 var(--head);letter-spacing:.14em;text-transform:uppercase;margin-bottom:18px}
+.eyebrow::before{content:"";width:22px;height:3px;background:currentColor}
+.hl{background:linear-gradient(transparent 58%,var(--y) 58%);padding:0 .1em}
+.dark .hl{background:none;color:var(--y)}
+.lead{font-size:clamp(18px,2.1vw,21px);max-width:720px;margin-top:18px}
+.muted{color:var(--muted)}
+.dark .muted{color:var(--muted-d)}
+.small{font-size:14px}
+.cite{font-size:13px;color:var(--muted);margin-top:10px;font-style:italic}
+.dark .cite{color:var(--muted-d)}
+
+/* ---------- secciones ---------- */
+section{padding:88px 0;position:relative}
+@media(max-width:720px){section{padding:64px 0}}
+.dark{background:var(--ink);color:var(--paper)}
+.yellow{background:var(--y);color:var(--ink)}
+.chap-head{display:grid;gap:18px;margin-bottom:44px}
+.chap-num{font:700 clamp(80px,14vw,170px)/.8 var(--head);color:var(--y);-webkit-text-stroke:2px var(--ink);letter-spacing:-.05em}
+.dark .chap-num{-webkit-text-stroke:0}
+@media(min-width:900px){.chap-head{grid-template-columns:auto 1fr;align-items:end;gap:36px}}
+
+.grid2{display:grid;gap:22px}
+.grid3{display:grid;gap:18px}
+@media(min-width:860px){.grid2{grid-template-columns:1fr 1fr}.grid3{grid-template-columns:repeat(3,1fr)}}
+.stack>*+*{margin-top:22px}
+
+.card{background:#fff;border:1.5px solid var(--ink);border-radius:var(--r);padding:26px;box-shadow:6px 6px 0 var(--ink)}
+.dark .card{background:var(--ink-2);border-color:var(--ink-3);box-shadow:6px 6px 0 var(--y)}
+.card.flat{box-shadow:none}
+.card.y{background:var(--y);color:var(--ink);border-color:var(--ink)}
+.tag{display:inline-block;font:700 12px/1 var(--head);letter-spacing:.08em;text-transform:uppercase;padding:6px 10px;border-radius:99px;background:var(--ink);color:var(--y);margin-bottom:14px}
+.dark .tag{background:var(--y);color:var(--ink)}
+
+.story{border-left:5px solid var(--y);padding:4px 0 4px 22px}
+.story .place{font:700 14px var(--head);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px}
+.quote{font:600 clamp(22px,3vw,32px)/1.25 var(--head);letter-spacing:-.02em}
+
+/* botones */
+.btn{display:inline-flex;align-items:center;gap:8px;border:2px solid var(--ink);background:var(--ink);color:var(--paper);padding:11px 18px;border-radius:99px;font-weight:700;font-size:15px;transition:transform .15s,background .2s,color .2s}
+.btn:hover{transform:translateY(-2px)}
+.btn.y{background:var(--y);color:var(--ink)}
+.btn.ghost{background:transparent;color:var(--ink)}
+.dark .btn{border-color:var(--y)}
+.dark .btn.ghost{color:var(--paper);border-color:var(--line-d)}
+.dark .btn.ghost:hover{border-color:var(--y)}
+.btn-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+
+/* inputs */
+.field{display:block;margin-top:14px}
+.field label{display:block;font-weight:700;font-size:14px;margin-bottom:6px}
+.field input,.field select,.field textarea,.inp{width:100%;padding:12px 14px;border:1.5px solid var(--ink);border-radius:12px;background:var(--paper);font-size:16px}
+.dark .field input,.dark .inp{background:var(--ink);border-color:var(--ink-3);color:var(--paper)}
+.field input:focus,.inp:focus{outline:none;border-color:var(--ink);box-shadow:0 0 0 4px var(--y)}
+
+.checks{list-style:none;margin-top:16px;display:grid;gap:8px}
+.checks li{display:flex;gap:10px;align-items:flex-start;font-size:15px}
+.checks .ic{flex-shrink:0;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:13px;background:var(--paper-2);color:var(--muted)}
+.checks .ic.ok{background:var(--ok);color:#fff}
+.checks .ic.no{background:var(--bad);color:#fff}
+.verdict{margin-top:16px;padding:14px 16px;border-radius:12px;font-weight:600;background:var(--paper-2)}
+.verdict.good{background:var(--y)}
+.dark .verdict{background:var(--ink-3)}
+.dark .verdict.good{background:var(--y);color:var(--ink)}
+
+/* ---------- HERO ---------- */
+.hero{background:var(--ink);color:var(--paper);padding:72px 0 96px;overflow:hidden}
+.hero .wrap{display:grid;gap:48px;align-items:center}
+@media(min-width:960px){.hero .wrap{grid-template-columns:1.15fr .85fr}}
+.hero h1{font-size:clamp(50px,9vw,112px);letter-spacing:-.045em}
+.hero h1 em{font-style:normal;color:var(--y)}
+.hero .sub{font:500 clamp(20px,2.6vw,28px)/1.3 var(--head);margin-top:20px;max-width:560px}
+.hero .sub s{text-decoration-color:var(--y);text-decoration-thickness:3px;opacity:.6}
+.sheet{position:relative;background:var(--paper);color:var(--ink);border-radius:6px;aspect-ratio:3/4;max-width:400px;width:100%;margin:0 auto;padding:36px 30px;box-shadow:14px 14px 0 var(--y);transform:rotate(2.5deg);transition:transform .5s}
+.sheet:hover{transform:rotate(0)}
+.sheet::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(transparent 0 33px,rgba(22,22,22,.09) 33px 34px);border-radius:6px;pointer-events:none}
+.sheet .line{font:600 clamp(22px,2.8vw,28px)/34px var(--hand);min-height:34px;position:relative;white-space:pre-wrap}
+.sheet .caret{display:inline-block;width:2px;height:24px;background:var(--ink);vertical-align:-4px;animation:blink 1s steps(1) infinite}
+.sheet .cross{text-decoration:line-through;text-decoration-color:var(--bad);text-decoration-thickness:2px}
+@keyframes blink{50%{opacity:0}}
+.hero-stats{display:flex;flex-wrap:wrap;gap:12px;margin-top:34px}
+.hero-stats div{border:1px solid var(--line-d);border-radius:14px;padding:12px 16px;font-size:14px}
+.hero-stats b{display:block;font:700 24px var(--head);color:var(--y)}
+
+/* ---------- barras ---------- */
+.bars{display:grid;gap:14px;margin-top:18px}
+.bar{display:grid;gap:6px}
+.bar .lbl{display:flex;justify-content:space-between;font-weight:600;font-size:14.5px;gap:10px}
+.bar .track{height:34px;border-radius:10px;background:var(--paper-2);overflow:hidden;border:1.5px solid var(--ink)}
+.dark .bar .track{background:var(--ink);border-color:var(--ink-3)}
+.bar .fill{height:100%;width:0;background:var(--ink);transition:width 1.2s cubic-bezier(.2,.8,.2,1);display:flex;align-items:center;justify-content:flex-end;padding-right:10px;color:var(--y);font:700 15px var(--head)}
+.bar .fill.y{background:var(--y);color:var(--ink)}
+.dark .bar .fill{background:var(--paper-2);color:var(--ink)}
+.dark .bar .fill.y{background:var(--y)}
+
+/* ---------- quiz A/B ---------- */
+.opts{display:grid;gap:10px;margin-top:16px}
+.opt{text-align:left;background:var(--paper);border:1.5px solid var(--ink);border-radius:14px;padding:14px 16px;font-size:15.5px;transition:.2s;display:flex;gap:12px;align-items:flex-start}
+.opt:hover{background:var(--paper-2)}
+.opt .k{flex-shrink:0;width:28px;height:28px;border-radius:50%;border:1.5px solid var(--ink);display:grid;place-items:center;font:700 13px var(--head)}
+.opt.right{background:var(--y)}
+.opt.wrong{background:#fbe3df;border-color:var(--bad)}
+.dark .opt{background:var(--ink);border-color:var(--ink-3)}
+.dark .opt .k{border-color:var(--paper)}
+.dark .opt.right{background:var(--y);color:var(--ink)}
+.dark .opt.right .k{border-color:var(--ink)}
+.feedback{margin-top:14px;font-size:15.5px;display:none}
+.feedback.show{display:block;animation:fadeUp .4s}
+
+/* ---------- intención de implementación ---------- */
+.ifthen{font:600 clamp(20px,2.6vw,26px)/1.5 var(--head);margin-top:12px}
+.ifthen .slot{display:inline-block;min-width:90px;border-bottom:3px solid var(--y);padding:0 4px;color:var(--y)}
+.ifthen .slot.empty{color:var(--muted-d)}
+.ifthen .slot.vague{border-color:var(--bad);color:#ff9b8c}
+
+/* ---------- registro ---------- */
+.log{width:100%;border-collapse:collapse;margin-top:16px;font-size:15px}
+.log th{font:700 13px var(--head);text-transform:uppercase;letter-spacing:.06em;text-align:left;padding:8px;border-bottom:2px solid var(--ink)}
+.log td{padding:6px 8px;border-bottom:1px solid var(--line)}
+.log input{width:100%;padding:8px 10px;border:1.5px solid var(--line);border-radius:8px;background:var(--paper);font-size:15px}
+.log input:focus{outline:none;border-color:var(--ink);box-shadow:0 0 0 3px var(--y)}
+.log td:first-child{font-weight:700;white-space:nowrap}
+.log-sum{display:flex;flex-wrap:wrap;gap:12px;margin-top:16px}
+.log-sum div{flex:1;min-width:120px;background:var(--paper-2);border-radius:12px;padding:12px 14px;font-size:13.5px}
+.log-sum b{display:block;font:700 26px var(--head)}
+
+/* ---------- línea de tiempo Matías ---------- */
+.tl{position:relative;margin-top:10px}
+.tl-tabs{display:flex;gap:8px;flex-wrap:wrap}
+.tl-tabs button{border:1.5px solid var(--line-d);background:transparent;color:var(--paper);padding:9px 14px;border-radius:99px;font-weight:700;font-size:14px}
+.tl-tabs button.on{background:var(--y);color:var(--ink);border-color:var(--y)}
+.tl-body{margin-top:18px;min-height:150px}
+.tl-body h4{color:var(--y)}
+
+/* ---------- escalera ---------- */
+.ladder{display:flex;flex-direction:column-reverse;gap:8px;margin-top:18px}
+.step{display:flex;align-items:center;gap:14px;text-align:left;border:1.5px solid var(--ink);background:#fff;border-radius:14px;padding:12px 16px;transition:.25s;font-size:15.5px}
+.step .n{flex-shrink:0;width:34px;height:34px;border-radius:10px;border:1.5px solid var(--ink);display:grid;place-items:center;font:700 16px var(--head)}
+.step.lit{background:var(--y)}
+.step.lit .n{background:var(--ink);color:var(--y)}
+.step:nth-child(1){margin-right:32%}.step:nth-child(2){margin-right:24%}.step:nth-child(3){margin-right:16%}.step:nth-child(4){margin-right:8%}
+@media(max-width:600px){.step:nth-child(n){margin-right:0}}
+.ladder-msg{margin-top:16px}
+
+/* ---------- stepper de sesión ---------- */
+.stepper{display:flex;gap:6px;flex-wrap:wrap;margin-top:18px}
+.stepper button{flex:1;min-width:108px;border:1.5px solid var(--line-d);background:transparent;color:var(--paper);border-radius:12px;padding:12px 10px;font:700 14px var(--head);letter-spacing:.06em;position:relative}
+.stepper button small{display:block;font:500 11px var(--body);opacity:.6;letter-spacing:0;margin-bottom:2px}
+.stepper button.on{background:var(--y);color:var(--ink);border-color:var(--y)}
+.stepper button.on small{opacity:.8}
+.step-panel{margin-top:18px;padding:22px;border-radius:var(--r);background:var(--ink-2);border:1px solid var(--ink-3);min-height:120px}
+.step-panel h4{font-size:24px;color:var(--y)}
+
+/* ---------- flip cards ---------- */
+.flip{perspective:1000px;min-height:220px;cursor:pointer;background:none;border:0;text-align:left;width:100%}
+.flip-in{position:relative;width:100%;height:100%;min-height:220px;transition:transform .6s;transform-style:preserve-3d}
+.flip.on .flip-in{transform:rotateY(180deg)}
+.flip-f,.flip-b{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:var(--r);padding:22px;border:1.5px solid var(--ink);display:flex;flex-direction:column;justify-content:space-between}
+.flip-f{background:#fff}
+.flip-f .big{font:700 22px/1.2 var(--head)}
+.flip-f .hint{font-size:13px;color:var(--muted);font-weight:600}
+.flip-b{background:var(--ink);color:var(--paper);transform:rotateY(180deg);font-size:15px}
+.flip-b b{color:var(--y)}
+.ruin-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0 20px}
+.ruin-tabs button{border:1.5px solid var(--ink);background:transparent;padding:9px 14px;border-radius:99px;font-weight:700;font-size:14px}
+.ruin-tabs button.on{background:var(--ink);color:var(--y)}
+
+/* ---------- apuesta ---------- */
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:10px;border-radius:99px;background:var(--ink-3);margin:14px 0 6px}
+.yellow input[type=range],.card input[type=range]{background:var(--paper-2);border:1.5px solid var(--ink)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:28px;height:28px;border-radius:50%;background:var(--y);border:3px solid var(--ink);cursor:pointer}
+input[type=range]::-moz-range-thumb{width:24px;height:24px;border-radius:50%;background:var(--y);border:3px solid var(--ink);cursor:pointer}
+.bet-val{font:700 44px var(--head);color:var(--y)}
+.card .bet-val,.yellow .bet-val{color:var(--ink)}
+
+/* ---------- temporizador ---------- */
+.timer{display:grid;gap:28px;align-items:center}
+@media(min-width:860px){.timer{grid-template-columns:300px 1fr}}
+.dial{position:relative;width:260px;height:260px;margin:0 auto}
+.dial svg{width:100%;height:100%;transform:rotate(-90deg)}
+.dial .bg{stroke:var(--ink-3)}
+.dial .fg{stroke:var(--y);transition:stroke-dashoffset .4s linear}
+.dial .t{position:absolute;inset:0;display:grid;place-items:center;text-align:center}
+.dial .t b{font:700 56px/1 var(--head);display:block;font-variant-numeric:tabular-nums}
+.dial .t span{font-size:13px;color:var(--muted-d);text-transform:uppercase;letter-spacing:.1em;font-weight:700}
+.modes{display:flex;gap:8px;flex-wrap:wrap}
+.modes button{border:1.5px solid var(--line-d);background:transparent;color:var(--paper);padding:10px 14px;border-radius:12px;font-weight:700;font-size:14px;text-align:left}
+.modes button small{display:block;font-weight:500;opacity:.65;font-size:12px}
+.modes button.on{border-color:var(--y);background:rgba(255,253,55,.1)}
+.pause-steps{list-style:none;counter-reset:s;margin-top:18px;display:grid;gap:10px}
+.pause-steps li{counter-increment:s;display:flex;gap:12px;align-items:flex-start;padding:10px 12px;border-radius:12px;border:1px solid var(--ink-3);transition:.3s;font-size:15px}
+.pause-steps li::before{content:counter(s);flex-shrink:0;width:26px;height:26px;border-radius:8px;background:var(--ink-3);display:grid;place-items:center;font:700 13px var(--head)}
+.pause-steps li.on{border-color:var(--y);background:rgba(255,253,55,.08)}
+.pause-steps li.on::before{background:var(--y);color:var(--ink)}
+.urge{display:flex;align-items:center;gap:14px;margin-top:18px;flex-wrap:wrap}
+.urge b{font:700 30px var(--head);color:var(--y);min-width:40px;text-align:center}
+
+/* ---------- espaciado ---------- */
+.curve{margin-top:10px;background:var(--paper);border:1.5px solid var(--ink);border-radius:var(--r);padding:14px}
+.zones{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px}
+.zones div{border-radius:12px;padding:12px;font-size:13.5px;border:1.5px solid var(--ink);background:#fff;transition:.3s}
+.zones div b{display:block;font:700 16px var(--head)}
+.zones div.on{background:var(--ink);color:var(--paper)}
+.zones div.on b{color:var(--y)}
+@media(max-width:600px){.zones{grid-template-columns:1fr}}
+.result-big{font:700 clamp(28px,4vw,40px)/1.1 var(--head);margin-top:6px}
+.cases{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.cases button{border:1.5px solid var(--ink);background:#fff;border-radius:99px;padding:8px 13px;font-weight:600;font-size:13.5px}
+.cases button:hover{background:var(--y)}
+
+/* ---------- tarjeta ---------- */
+.tcard{background:var(--paper);color:var(--ink);border-radius:var(--r);border:2px solid var(--ink);box-shadow:10px 10px 0 var(--y);overflow:hidden}
+.tcard-head{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px 22px;background:var(--y);border-bottom:2px solid var(--ink);flex-wrap:wrap}
+.tcard-head h3{margin:0;font-size:24px}
+.tcard-row{display:grid;border-bottom:1px solid var(--line)}
+.tcard-row:last-child{border-bottom:0}
+@media(min-width:860px){.tcard-row{grid-template-columns:200px 1fr 1fr}}
+.tcard-row>div{padding:14px 20px}
+.tcard-row .fk{font:700 15px var(--head)}
+.tcard-row .fk small{display:block;font:500 12.5px var(--body);color:var(--muted)}
+.tcard-row .ex{font-size:14.5px;color:var(--muted);background:var(--paper-2)}
+.tcard-row .ex::before{content:"Matías · ";font-weight:700;color:var(--ink)}
+@media(min-width:860px){.tcard-row .ex::before{content:none}}
+.tcard-row textarea{width:100%;border:1.5px solid var(--line);border-radius:10px;padding:10px 12px;resize:vertical;min-height:46px;background:#fff;font-size:15px}
+.tcard-row textarea:focus{outline:none;border-color:var(--ink);box-shadow:0 0 0 3px var(--y)}
+.tcard-cols{display:none;padding:10px 20px;background:var(--ink);color:var(--paper);font:700 12px var(--head);letter-spacing:.1em;text-transform:uppercase}
+@media(min-width:860px){.tcard-cols{display:grid;grid-template-columns:200px 1fr 1fr}.tcard-cols span{padding:0 20px}.tcard-cols span:first-child{padding-left:0}}
+.chrono{font:700 15px var(--head);font-variant-numeric:tabular-nums}
+.chrono.warn{color:var(--bad)}
+.hide-ex .ex{display:none}
+@media(min-width:860px){.hide-ex .tcard-row{grid-template-columns:200px 1fr}.hide-ex .tcard-cols{grid-template-columns:200px 1fr}.hide-ex .tcard-cols span:nth-child(2){display:none}}
+
+/* ---------- quiz final ---------- */
+.mq{max-width:760px;margin:0 auto}
+.mq-card{background:#fff;border:2px solid var(--ink);border-radius:var(--r);padding:30px;box-shadow:8px 8px 0 var(--ink);min-height:270px}
+.mq-meta{display:flex;justify-content:space-between;font:700 13px var(--head);letter-spacing:.08em;text-transform:uppercase;margin-bottom:14px}
+.mq-dots{display:flex;gap:6px}
+.mq-dots i{width:10px;height:10px;border-radius:50%;background:var(--paper-2);border:1.5px solid var(--ink)}
+.mq-dots i.ok{background:var(--ok);border-color:var(--ok)}
+.mq-dots i.no{background:var(--bad);border-color:var(--bad)}
+.mq-q{font:700 clamp(21px,2.8vw,27px)/1.25 var(--head)}
+.mq-btns{display:flex;gap:10px;margin-top:22px;flex-wrap:wrap}
+.mq-btns .btn{flex:1;justify-content:center;min-width:140px}
+
+/* ---------- footer ---------- */
+footer{background:var(--ink);color:var(--paper);padding:64px 0 36px}
+footer .big{font:700 clamp(34px,6vw,64px)/1 var(--head);letter-spacing:-.04em}
+footer .big em{font-style:normal;color:var(--y)}
+details{margin-top:30px;border-top:1px solid var(--line-d);padding-top:18px}
+summary{cursor:pointer;font:700 15px var(--head);list-style:none;display:flex;align-items:center;gap:10px}
+summary::before{content:"+";width:26px;height:26px;border-radius:50%;background:var(--y);color:var(--ink);display:grid;place-items:center;font-size:18px;transition:.2s}
+details[open] summary::before{transform:rotate(45deg)}
+.biblio{margin-top:14px;font-size:13.5px;color:var(--muted-d);display:grid;gap:6px;padding-left:18px}
+.ig{display:inline-flex;align-items:center;gap:10px;margin-top:22px;text-decoration:none;color:var(--ink);background:var(--y);padding:12px 20px;border-radius:99px;font-weight:700}
+
+/* ---------- animaciones ---------- */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s,transform .7s}
+.reveal.in{opacity:1;transform:none}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}html{scroll-behavior:auto}}
+
+.marquee{background:var(--y);color:var(--ink);border-block:2px solid var(--ink);overflow:hidden;white-space:nowrap;padding:14px 0}
+.marquee div{display:inline-block;animation:mq 38s linear infinite;font:700 20px var(--head);letter-spacing:-.01em}
+.marquee span{margin:0 22px}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+/* impresión: solo la tarjeta */
+@media print{
+  body.print-card>*:not(#tarjeta){display:none!important}
+  body.print-card #tarjeta{padding:0;background:#fff}
+  body.print-card #tarjeta .chap-head,body.print-card #tarjeta .btn-row,body.print-card .no-print{display:none!important}
+  .tcard{box-shadow:none}
+}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+
+<nav class="top" aria-label="Secciones">
+  <div class="wrap">
+    <a class="brand" href="#inicio" aria-label="Eon Aprende, inicio">
+      <span class="brand-mark">e</span>
+      <span class="brand-name">Eon <span>Aprende</span></span>
+    </a>
+    <div class="chips">
+      <a href="#cap1">1 · Antes</a>
+      <a href="#cap2">2 · Sensación de saber</a>
+      <a href="#cap3">3 · Tinta fresca</a>
+      <a href="#cap4">4 · Olvido</a>
+      <a href="#tarjeta">La tarjeta</a>
+      <a href="#quiz">Quiz</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ================= HERO ================= -->
+<header class="hero" id="inicio">
+  <div class="wrap">
+    <div>
+      <div class="eyebrow" style="color:var(--y)">Eon Aprende · Guía interactiva</div>
+      <h1>La hoja<br>en <em>blanco</em></h1>
+      <p class="sub">Estudiar para <b style="color:var(--y)">saber</b>,<br>no para <s>sentir que sabes</s>.</p>
+      <p class="lead" style="color:var(--muted-d)">Todos estudiamos. Nadie nos enseña cómo. Esta página lo resume en cuatro ideas y te deja probarlas: cómo llegar a la silla, cómo comprobar lo que sabes, qué hacer al cerrar el libro y cuándo volver al tema.</p>
+      <div class="hero-stats">
+        <div><b data-count="61">0</b>% recordó quien escribió de memoria</div>
+        <div><b data-count="7">0</b> minutos de pausa al cerrar</div>
+        <div><b data-count="1">0</b> tarjeta para todo el método</div>
+      </div>
+    </div>
+    <div aria-hidden="true">
+      <div class="sheet" id="sheet">
+        <div class="line" id="l1"></div>
+        <div class="line" id="l2"></div>
+        <div class="line" id="l3"></div>
+        <div class="line" id="l4"></div>
+        <div class="line" id="l5"></div>
+        <div class="line" id="l6"></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="marquee" aria-hidden="true"><div>
+  <span>Reconocer no es recordar</span>✦<span>Recorta el objetivo, nunca la cita</span>✦<span>El teléfono sale de la habitación</span>✦<span>Deja secar la tinta</span>✦<span>Esperar también es estudiar</span>✦
+  <span>Reconocer no es recordar</span>✦<span>Recorta el objetivo, nunca la cita</span>✦<span>El teléfono sale de la habitación</span>✦<span>Deja secar la tinta</span>✦<span>Esperar también es estudiar</span>✦
+</div></div>
+
+<!-- ================= CAPÍTULO 1 ================= -->
+<section id="cap1">
+  <div class="wrap">
+    <div class="chap-head reveal">
+      <div class="chap-num">01</div>
+      <div>
+        <div class="eyebrow">Capítulo 1</div>
+        <h2>Qué hacer <span class="hl">antes</span> de estudiar</h2>
+        <p class="lead">Lo que falta no es convicción. Es un instrumento, y un instrumento sirve para una cosa: calibrarte.</p>
+      </div>
+    </div>
+
+    <div class="grid2">
+      <div class="story reveal">
+        <div class="place">Filadelfia · 1728</div>
+        <p>Un impresor de veintidós años, <b>Benjamin Franklin</b>, se propone vivir sin cometer una sola falta. Hace una lista de trece virtudes y ataca las trece a la vez. No dura nada.</p>
+        <p>En vez de prometerse más esfuerzo, <b>reduce el objetivo sin tocar el marco</b>: una virtud por semana y un cuaderno con trece filas y siete columnas. Cada noche marca sus faltas con un punto negro.</p>
+        <p>A la semana, la página está mucho más sucia de lo que imaginaba. No había empeorado: <span class="hl">lo único nuevo era la columna</span>.</p>
+      </div>
+      <div class="card y reveal">
+        <p class="quote">"Lo que descubrió esa semana no fue que le faltaba disciplina. Fue que hasta entonces no había tenido manera de saber si le faltaba."</p>
+      </div>
+    </div>
+
+    <!-- Objetivo incumplible -->
+    <div class="grid2" style="margin-top:56px">
+      <div class="card reveal">
+        <span class="tag">Pruébalo</span>
+        <h3>¿Cuál de los dos puedes <span class="hl">incumplir</span>?</h3>
+        <p class="muted small">Matías los escribió para la misma clase, con dos semanas de diferencia.</p>
+        <div class="opts" id="goalQuiz">
+          <button class="opt" data-ok="0"><span class="k">A</span><span>Repasar el capítulo 4 de Estadística.</span></button>
+          <button class="opt" data-ok="1"><span class="k">B</span><span>Explicar en voz alta qué es un intervalo de confianza y resolver tres ejercicios del tipo 4.2 sin mirar apuntes.</span></button>
+        </div>
+        <div class="feedback" id="goalFb"><b>El B.</b> El A se cumple con cualquier cosa que hagas durante una hora, incluso pasar páginas. Un objetivo sin final no da un veredicto, y sin veredicto no hay nada que corregir. <b>El verbo es lo que hace detectable el final:</b> "repasar" no termina nunca; "explicar" sí, porque o lo explicaste o te trabaste.</div>
+      </div>
+
+      <div class="card reveal">
+        <span class="tag">Herramienta</span>
+        <h3>Revisa tu objetivo</h3>
+        <p class="muted small">Un verbo con desenlace más una cantidad. Escríbelo y lo evaluamos en vivo.</p>
+        <div class="field">
+          <label for="goalIn">Mi objetivo para la próxima sesión</label>
+          <input id="goalIn" placeholder="Ej.: Resolver 6 ejercicios del tipo B sin apuntes" autocomplete="off">
+        </div>
+        <ul class="checks" id="goalChecks">
+          <li><span class="ic" data-c="verb">?</span><span>Verbo con desenlace (explicar, resolver, reconstruir, enumerar…)</span></li>
+          <li><span class="ic" data-c="qty">?</span><span>Tiene una cantidad concreta</span></li>
+          <li><span class="ic" data-c="time">?</span><span>No usa el tiempo como objetivo (el tiempo es un contenedor)</span></li>
+        </ul>
+        <div class="verdict" id="goalVerdict">Si al releerlo no puedes decir cómo se ve terminado, todavía no tienes un objetivo, tienes una intención.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Intenciones de implementación -->
+<section class="dark">
+  <div class="wrap">
+    <div class="grid2" style="align-items:center">
+      <div class="reveal">
+        <div class="eyebrow" style="color:var(--y)">La mente obedece situaciones, no intenciones</div>
+        <h2>Decide <span class="hl">una sola vez</span>, el domingo.</h2>
+        <p class="lead">Gollwitzer y Brandstätter pidieron a estudiantes un informe sobre su Nochebuena. A la mitad les pidieron además decidir <b>cuándo y dónde</b> lo escribirían. Entre quienes lo entregaron:</p>
+        <div class="bars" data-bars>
+          <div class="bar"><div class="lbl"><span>Con plan de cuándo y dónde</span></div><div class="track"><div class="fill y" data-w="71">71%</div></div></div>
+          <div class="bar"><div class="lbl"><span>Sin plan</span></div><div class="track"><div class="fill" data-w="32">32%</div></div></div>
+        </div>
+        <p class="cite">% que escribió el informe dentro del plazo. Estudio pequeño (17 contra 19 analizados); el metaanálisis posterior sitúa el efecto en torno a d ≈ 0,46: mediano, no un milagro.</p>
+      </div>
+      <div class="card reveal">
+        <span class="tag">Arma tu plan</span>
+        <h3 style="margin-bottom:0">Si… entonces…</h3>
+        <p class="ifthen" id="ifthen">Si son las <span class="slot empty" data-s="0">___</span> y estoy en <span class="slot empty" data-s="1">___</span>, entonces <span class="slot empty" data-s="2">___</span>.</p>
+        <div class="field"><label for="it0">¿Cuándo? (una hora o un evento reconocible)</label><input id="it0" placeholder="19:00 del martes / cuando dejo la mochila en la silla" autocomplete="off"></div>
+        <div class="field"><label for="it1">¿Dónde?</label><input id="it1" placeholder="el escritorio de mi habitación" autocomplete="off"></div>
+        <div class="field"><label for="it2">¿Cuál es la primera acción? (solo una)</label><input id="it2" placeholder="abro la guía en la página 12" autocomplete="off"></div>
+        <div class="verdict" id="itVerdict">Si alguno de los tres espacios te sale vago, esa vaguedad es la que vas a negociar contigo el jueves a las siete.</div>
+      </div>
+    </div>
+
+    <div class="grid3" style="margin-top:56px">
+      <div class="card reveal">
+        <div style="font-size:34px">📵</div>
+        <h4>El teléfono sale de la habitación</h4>
+        <p class="small muted">No boca abajo: cargando en otra habitación, con la puerta cerrada. No proteges una capacidad invisible; proteges la sesión de interrupciones reales.</p>
+      </div>
+      <div class="card reveal">
+        <div style="font-size:34px">✂️</div>
+        <h4>Se recorta el objetivo, nunca la cita</h4>
+        <p class="small muted">¿Llegaste tarde y tienes energía para un tema de tres? Haz uno, en el mismo lugar y a la misma hora. Escribe hoy: <i>"si no alcanza, hago ___"</i>.</p>
+      </div>
+      <div class="card reveal">
+        <div style="font-size:34px">⏱️</div>
+        <h4>Duración fijada: 40 minutos</h4>
+        <p class="small muted">El final lo decide la alarma, no tu sensación de haber avanzado. Sin duración fijada, la sesión termina cuando te aburres.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Registro -->
+<section>
+  <div class="wrap grid2" style="align-items:start">
+    <div class="reveal">
+      <div class="eyebrow">Siete días de registro</div>
+      <h2>La memoria sobre tu esfuerzo es <span class="hl">generosa</span>.</h2>
+      <p class="lead">Por eso no se recuerda: se anota. Dos columnas, siete días. En una revisión de 138 estudios, monitorear el avance mejoró el logro de la meta (d = 0,40), sobre todo cuando se anotaba seguido y en papel.</p>
+      <p style="margin-top:14px">Al cabo de una semana, el problema deja de parecer de disciplina y empieza a parecer de <b>calibración</b>. Entonces ajustas la cantidad, no la hora.</p>
+      <div class="card flat" style="margin-top:22px;background:var(--paper-2)">
+        <b>Una fila en blanco es un dato igual de válido que una cumplida.</b>
+        <p class="small muted" style="margin-top:6px">Matías tardó tres semanas en creerlo.</p>
+      </div>
+    </div>
+    <div class="card reveal">
+      <span class="tag">Tu registro</span>
+      <h3>Propuesto vs. cumplido</h3>
+      <p class="small muted">Anota tareas o ejercicios por día. Se guarda en este navegador.</p>
+      <div style="overflow-x:auto">
+      <table class="log" id="log">
+        <thead><tr><th>Día</th><th>Propuesto</th><th>Cumplido</th></tr></thead>
+        <tbody></tbody>
+      </table>
+      </div>
+      <div class="log-sum">
+        <div><b id="sumP">0</b>propuesto</div>
+        <div><b id="sumC">0</b>cumplido</div>
+        <div style="background:var(--y)"><b id="sumR">—</b>tu capacidad real</div>
+      </div>
+      <div class="btn-row"><button class="btn ghost" id="logClear" type="button">Borrar registro</button></div>
+    </div>
+  </div>
+</section>
+
+<!-- Caso Matías -->
+<section class="dark">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="eyebrow" style="color:var(--y)">El caso</div>
+      <h2>Tres semanas de Matías</h2>
+    </div>
+    <div class="tl reveal" style="margin-top:28px">
+      <div class="tl-tabs" id="tlTabs">
+        <button class="on" data-i="0">Antes</button>
+        <button data-i="1">La tarjeta</button>
+        <button data-i="2">Semana 1</button>
+        <button data-i="3">Semanas 2 y 3</button>
+        <button data-i="4">La regla</button>
+      </div>
+      <div class="tl-body" id="tlBody"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CAPÍTULO 2 ================= -->
+<section id="cap2">
+  <div class="wrap">
+    <div class="chap-head reveal">
+      <div class="chap-num">02</div>
+      <div>
+        <div class="eyebrow">Capítulo 2</div>
+        <h2>La sensación <span class="hl">de saber</span></h2>
+        <p class="lead">Puedes recitar una definición completa, palabra por palabra, sin la menor idea de qué describe. Y mientras la recitas, vas a sentir que la sabes.</p>
+      </div>
+    </div>
+
+    <div class="grid2">
+      <div class="story reveal">
+        <div class="place">Río de Janeiro · años 50</div>
+        <p><b>Richard Feynman</b> da clases en Brasil. Sus alumnos recitan definiciones y fórmulas sin fallar. Les pregunta cómo saber hacia dónde está orientada la luz usando una lámina polarizadora, y les señala la bahía por la ventana. Silencio.</p>
+        <p>Repite la pregunta con el nombre técnico del libro, <i>"ángulo de Brewster"</i>, y la respuesta llega al instante. <span class="hl">Se sabían la regla. No sabían que hablaba de la bahía que tenían enfrente.</span></p>
+        <p class="small muted" style="margin-top:14px">Triboluminiscencia: si aprietas un terrón de azúcar con un alicate a oscuras, vas a ver un destello azulado. Eso no estaba en el libro.</p>
+      </div>
+      <div class="card y reveal">
+        <span class="tag">Hazlo ahora</span>
+        <h3>Encuentra tu bahía</h3>
+        <ol style="padding-left:20px;display:grid;gap:8px;margin-top:10px">
+          <li>Escribe arriba de una hoja un concepto que estudiaste la semana pasada y que jurarías saber.</li>
+          <li>Di en voz alta qué es, sin mirar nada.</li>
+          <li>Dale un ejemplo que <b>no</b> hayas visto en clase.</li>
+        </ol>
+        <p style="margin-top:14px;font-weight:700">Si la definición sale entera y el ejemplo no aparece, encontraste tu bahía.</p>
+      </div>
+    </div>
+
+    <!-- Roediger & Karpicke -->
+    <div class="grid2" style="margin-top:56px;align-items:start">
+      <div class="reveal">
+        <div class="eyebrow">La única prueba que sirve</div>
+        <h3>Dos estudiantes, el mismo texto, el mismo tiempo.</h3>
+        <p>El primero lo <b>lee cuatro veces</b>. El segundo lo lee una vez, lo pone boca abajo y <b>escribe todo lo que recuerda</b>, tres veces. Antes de ver el resultado, apuesta:</p>
+        <div class="card flat" style="margin-top:18px;background:var(--paper-2)">
+          <p><b>La facilidad engaña.</b> Rhodes y Castel mostraron palabras en letra grande y pequeña: la gente apostó por recordar más las grandes y las recordó igual. Leer con facilidad <i>se siente</i> como saber.</p>
+        </div>
+      </div>
+      <div class="card reveal">
+        <span class="tag">Apuesta</span>
+        <h4 id="rkQ">¿Quién recuerda más a los 5 minutos?</h4>
+        <div class="opts" id="rkOpts">
+          <button class="opt" data-a="read"><span class="k">A</span><span>El que releyó cuatro veces</span></button>
+          <button class="opt" data-a="write"><span class="k">B</span><span>El que escribió de memoria</span></button>
+        </div>
+        <div class="feedback" id="rkFb"></div>
+        <div id="rkChart" style="display:none">
+          <div class="bars">
+            <div class="bar"><div class="lbl"><span>Escribió de memoria</span></div><div class="track"><div class="fill y" data-w="61">61%</div></div></div>
+            <div class="bar"><div class="lbl"><span>Releyó</span></div><div class="track"><div class="fill" data-w="40">40%</div></div></div>
+          </div>
+          <p class="cite">Recuerdo a la semana. Roediger y Karpicke (2006). Los que releyeron eran, además, los más confiados.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="yellow">
+  <div class="wrap" style="text-align:center">
+    <p class="quote reveal" style="max-width:860px;margin:0 auto;font-size:clamp(28px,4.4vw,48px)">Reconocer no es recordar.<br>La hoja en blanco <u style="text-decoration-thickness:4px;text-underline-offset:6px">tiene</u> que salir mal.</p>
+    <p class="reveal" style="max-width:640px;margin:18px auto 0;font-weight:500">Va a quedar corta, desordenada y con huecos. Esa incomodidad es la señal de que estás haciendo el trabajo que releer te ahorraba. Robert Bjork lo llamó <b>ilusión de competencia</b>.</p>
+  </div>
+</section>
+
+<section class="dark">
+  <div class="wrap">
+    <div class="grid2" style="align-items:start">
+      <div class="reveal">
+        <div class="eyebrow" style="color:var(--y)">No basta con recuperar</div>
+        <h2>El error del que estabas <span class="hl">más seguro</span></h2>
+        <p class="lead">Matías escribió de memoria, sin dudar, una regla que creía clarísima. Abrió los apuntes: era exactamente al revés. Ese fue el error que mejor se le quedó corregido.</p>
+        <p style="margin-top:14px">Butterfield y Metcalfe lo llamaron <b style="color:var(--y)">hipercorrección</b>: los errores de alta confianza se corrigen mejor, <i>siempre que después veas la respuesta correcta</i>. La seguridad no te dice si tienes razón; te dice dónde mirar.</p>
+        <p class="muted small" style="margin-top:14px">Ojo: la corrección no dura para siempre. Si no vuelves al tema, el error original puede regresar. Y si escribes algo mal y nadie lo corrige, acabas de practicar el error con el mejor método disponible.</p>
+      </div>
+      <div class="reveal">
+        <div class="card" style="background:var(--paper);color:var(--ink);box-shadow:6px 6px 0 var(--y);border-color:var(--ink)">
+          <span class="tag" style="background:var(--ink);color:var(--y)">La escalera</span>
+          <h3>¿Hasta qué peldaño llega tu concepto?</h3>
+          <p class="small muted">Toca el peldaño más alto que superas con honestidad.</p>
+          <div class="ladder" id="ladder">
+            <button class="step" data-l="1"><span class="n">1</span>¿Lo reconozco cuando lo veo?</button>
+            <button class="step" data-l="2"><span class="n">2</span>¿Lo recuerdo con el libro cerrado?</button>
+            <button class="step" data-l="3"><span class="n">3</span>¿Lo explico con mis palabras?</button>
+            <button class="step" data-l="4"><span class="n">4</span>¿Doy un ejemplo que no esté en el material?</button>
+            <button class="step" data-l="5"><span class="n">5</span>¿Lo uso en un problema que nadie me preparó?</button>
+          </div>
+          <div class="verdict ladder-msg" id="ladderMsg">Saber no es algo que se tiene o no se tiene. Es una escalera.</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:64px" class="reveal">
+      <div class="eyebrow" style="color:var(--y)">Tu sesión en 5 pasos</div>
+      <h3>Toca cada paso</h3>
+      <div class="stepper" id="sessSteps"></div>
+      <div class="step-panel" id="sessPanel" aria-live="polite"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CAPÍTULO 3 ================= -->
+<section id="cap3">
+  <div class="wrap">
+    <div class="chap-head reveal">
+      <div class="chap-num">03</div>
+      <div>
+        <div class="eyebrow">Capítulo 3</div>
+        <h2>La tinta <span class="hl">fresca</span></h2>
+        <p class="lead">Lo que acabas de estudiar todavía no está guardado, y el primer peligro no es el tiempo: es lo que haces al levantarte de la silla.</p>
+      </div>
+    </div>
+
+    <div class="grid2" style="align-items:start">
+      <div class="story reveal">
+        <div class="place">Gotinga, Alemania · 1892–1900</div>
+        <p><b>Georg Elias Müller</b> y <b>Alfons Pilzecker</b> ponen a voluntarios a memorizar parejas de palabras inventadas. Algunos cuentan que, entre sesiones, las parejas les vuelven solas a la cabeza.</p>
+        <p>Müller sospecha que ese eco es el recuerdo terminando de fijarse. Lo prueba así: después de memorizar una lista, los voluntarios pasan <b>seis minutos describiendo tres cuadros de paisajes</b>. Después de otra lista, esperan seis minutos sin hacer nada.</p>
+        <p>Si la segunda lista empezaba 17 segundos después de la primera, dañaba la primera. Si empezaba seis minutos después, no. Lo llamaron <b>inhibición retroactiva</b>: un daño que viaja hacia atrás.</p>
+      </div>
+      <div class="card reveal">
+        <span class="tag">Apuesta antes de seguir</span>
+        <h4>Sin interrupción recordaron el <b>56%</b>.<br>¿Y después de describir los paisajes?</h4>
+        <div class="bet-val"><span id="betV">40</span>%</div>
+        <input type="range" min="0" max="60" value="40" id="bet" aria-label="Tu apuesta en porcentaje">
+        <button class="btn y" id="betGo" type="button">Revelar</button>
+        <div id="betRes" style="display:none">
+          <div class="bars">
+            <div class="bar"><div class="lbl"><span>Esperaron sin hacer nada</span></div><div class="track"><div class="fill" data-w="56">56%</div></div></div>
+            <div class="bar"><div class="lbl"><span>Describieron 3 paisajes</span></div><div class="track"><div class="fill y" data-w="24">24%</div></div></div>
+            <div class="bar"><div class="lbl"><span>Tu apuesta</span></div><div class="track"><div class="fill" id="betBar" data-w="40" style="background:var(--muted)">40%</div></div></div>
+          </div>
+          <p class="feedback show" id="betFb"></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid2" style="margin-top:48px">
+      <div class="card y reveal">
+        <p class="quote">"Es tinta fresca. Si pasas la mano antes de que seque, se corre."</p>
+        <p style="margin-top:12px;font-weight:500">Y la mano no tiene que parecerse a lo que estudiaste. Basta con que exija tu atención con fuerza: el teléfono, otra materia, un video.</p>
+      </div>
+      <div class="card reveal">
+        <span class="tag">Innsbruck · 2025</span>
+        <h4>¿Qué hacer en los 7 minutos después de estudiar?</h4>
+        <p class="small muted">Ordena de mejor a peor según el recuerdo del día siguiente. Toca en orden.</p>
+        <div class="opts" id="rankOpts">
+          <button class="opt" data-r="2"><span class="k">·</span><span>Quedarse sentado, despierto, sin hacer nada</span></button>
+          <button class="opt" data-r="3"><span class="k">·</span><span>Pasar a otra tarea</span></button>
+          <button class="opt" data-r="1"><span class="k">·</span><span>Volver a pasar una vez por lo estudiado</span></button>
+        </div>
+        <div class="feedback" id="rankFb"><b>1. Repasar una vez · 2. Descansar · 3. Distraerse.</b> Un matiz honesto: la lista repasada tuvo más exposiciones en total, así que ganó por más estudio. Por eso el método combina las dos cosas: primero relees tu hoja corregida y después te quedas quieto hasta completar los siete minutos.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Temporizador -->
+<section class="dark" id="timer">
+  <div class="wrap">
+    <div class="reveal" style="margin-bottom:32px">
+      <div class="eyebrow" style="color:var(--y)">Herramienta</div>
+      <h2>Tu sesión con <span class="hl">cierre</span> y <span class="hl">pausa</span></h2>
+      <p class="lead">Alarma de 40 min → hoja en blanco → corrección → pausa de 7 min. Úsalo de verdad: deja esta pestaña abierta y el teléfono en otra habitación.</p>
+    </div>
+    <div class="timer reveal">
+      <div class="dial">
+        <svg viewBox="0 0 120 120" aria-hidden="true">
+          <circle class="bg" cx="60" cy="60" r="52" fill="none" stroke-width="9"/>
+          <circle class="fg" id="dialFg" cx="60" cy="60" r="52" fill="none" stroke-width="9" stroke-linecap="round" stroke-dasharray="326.73" stroke-dashoffset="0"/>
+        </svg>
+        <div class="t"><div><b id="tTime" aria-live="off">40:00</b><span id="tLbl">Sesión</span></div></div>
+      </div>
+      <div>
+        <div class="modes" id="modes">
+          <button class="on" data-m="study" data-s="2400">Sesión<small>40 minutos</small></button>
+          <button data-m="pause" data-s="420">Pausa<small>7 minutos</small></button>
+        </div>
+        <div class="btn-row">
+          <button class="btn y" id="tStart" type="button">▶ Empezar</button>
+          <button class="btn ghost" id="tReset" type="button">↺ Reiniciar</button>
+        </div>
+        <ol class="pause-steps" id="pSteps">
+          <li data-p="0"><span><b>CIERRA.</b> Suena la alarma: escribe la hoja en blanco y corrígela.</span></li>
+          <li data-p="1"><span><b>RELEE.</b> Una vez, despacio, la hoja corregida. Detente en los errores de los que estabas seguro.</span></li>
+          <li data-p="2"><span><b>QUÉDATE.</b> Sentado con los ojos cerrados o caminando sin rumbo. Ni teléfono ni otra materia. Si lo estudiado vuelve, déjalo pasar.</span></li>
+          <li data-p="3"><span><b>SIGUE.</b> Solo ahora, el próximo bloque.</span></li>
+        </ol>
+        <div class="urge">
+          <button class="btn ghost" id="urgeBtn" type="button">Quise levantarme</button>
+          <b id="urgeN">0</b><span class="muted small">veces. Anótalo: es tu dato de hoy.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CAPÍTULO 4 ================= -->
+<section id="cap4">
+  <div class="wrap">
+    <div class="chap-head reveal">
+      <div class="chap-num">04</div>
+      <div>
+        <div class="eyebrow">Capítulo 4</div>
+        <h2>El olvido <span class="hl">a propósito</span></h2>
+        <p class="lead">La hoja que te sale perfecta es la que menos te enseña.</p>
+      </div>
+    </div>
+
+    <div class="grid2" style="align-items:center">
+      <div class="story reveal">
+        <div class="place">Poznań, Polonia · 1985</div>
+        <p><b>Piotr Woźniak</b> necesita vocabulario en inglés y calcula que, a su ritmo, le tomaría <b>120 años</b>. Deja de preguntarse cuánto repasar y se pregunta <span class="hl">cuánto puede esperar</span>.</p>
+        <p>Si falla poco, la próxima vez espera más. Si falla mucho, espera menos. En un año aprende más de diez mil palabras con 41 minutos diarios. Ese método se llama <b>repetición espaciada</b>.</p>
+      </div>
+      <div class="card reveal">
+        <div style="display:flex;gap:20px;flex-wrap:wrap;align-items:flex-end">
+          <div><div style="font:700 64px/1 var(--head)" data-count="317">0</div><div class="small muted">experimentos revisados por Cepeda y su equipo (2006)</div></div>
+        </div>
+        <p style="margin-top:14px">Con las mismas horas de estudio, <b>recuerdas más si dejas días entre una sesión y otra</b>. Esperar no es perder el tiempo: es lo que hace que el repaso sirva.</p>
+      </div>
+    </div>
+
+    <!-- Matías: tres esperas -->
+    <div class="reveal" style="margin-top:56px">
+      <div class="eyebrow">Cuánto esperó Matías</div>
+      <h3>Tres temas, tres esperas. Solo una fue justa.</h3>
+      <div class="zones" id="zones">
+        <div data-z="0"><b>1 día · Cálculo</b>La hoja sale perfecta en 4 minutos. Se siente como un éxito y por eso engaña: no le mostró nada.</div>
+        <div data-z="1"><b>4 días · Intervalos</b>Casi todo bien, pero escribe sin dudar que al aumentar la muestra el intervalo se ensancha. Es al revés. Ese poco le mostró el error.</div>
+        <div data-z="2"><b>3 semanas · Desv. estándar</b>Tres renglones y una fórmula a medias. Tendrá que estudiar el tema de nuevo.</div>
+      </div>
+    </div>
+
+    <!-- Calculadora -->
+    <div class="grid2" style="margin-top:48px;align-items:start">
+      <div class="card reveal">
+        <span class="tag">Calculadora</span>
+        <h3>¿Cuándo vuelvo a este tema?</h3>
+        <div class="cases" id="cases">
+          <button data-d="1" data-m="0" type="button">Cálculo (1 día)</button>
+          <button data-d="4" data-m="1" type="button">Intervalos (4 días)</button>
+          <button data-d="21" data-m="8" type="button">Desviación (3 sem.)</button>
+        </div>
+        <div class="field"><label for="spDays">¿Cuántos días esperaste?</label><input id="spDays" type="number" min="1" max="365" value="4" inputmode="numeric"></div>
+        <div class="field">
+          <label for="spMiss">De cada 10 ideas, ¿cuántas faltaron en tu hoja? <b id="spMissV">1</b></label>
+          <input id="spMiss" type="range" min="0" max="10" value="1">
+        </div>
+        <div class="field"><label for="spExam">Fecha de la prueba (opcional)</label><input id="spExam" type="date"></div>
+      </div>
+      <div class="card y reveal" aria-live="polite">
+        <span class="tag">Resultado</span>
+        <div class="small" style="font-weight:700;text-transform:uppercase;letter-spacing:.08em" id="spZone">Esperaste bien</div>
+        <div class="result-big" id="spNext">Próxima espera: 8 días</div>
+        <div style="font:600 18px var(--head);margin-top:8px" id="spDate"></div>
+        <p style="margin-top:14px" id="spWhy"></p>
+        <hr style="border:0;border-top:1.5px solid var(--ink);margin:18px 0;opacity:.3">
+        <p class="small"><b>La regla:</b> 1–2 de 10 faltantes = esperaste bien; 0 = esperaste poco → en ambos casos, la próxima espera es el <b>doble</b>. Más de 2 = esperaste demasiado → estudias lo que faltó y la próxima espera es la <b>mitad</b>. Si la fecha cae después de la prueba, la mueves a dos días antes.</p>
+        <p class="cite" style="color:var(--ink);opacity:.7">El doble y la mitad son el método de Woźniak reducido a una regla; la investigación respalda la idea de espaciar, no esos números exactos.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ¿Cómo se arruina? -->
+<section class="yellow" id="ruina">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="eyebrow">Cómo se arruina todo esto</div>
+      <h2>Cada pieza falla de tres maneras.</h2>
+      <p class="lead">Elige un capítulo y da vuelta las tarjetas. ¿Cuál es la tuya?</p>
+    </div>
+    <div class="ruin-tabs" id="ruinTabs">
+      <button class="on" data-c="0">La tarjeta</button>
+      <button data-c="1">La recuperación</button>
+      <button data-c="2">La pausa</button>
+      <button data-c="3">El repaso espaciado</button>
+    </div>
+    <div class="grid3" id="ruinCards"></div>
+  </div>
+</section>
+
+<!-- ================= LA TARJETA ================= -->
+<section id="tarjeta">
+  <div class="wrap">
+    <div class="chap-head reveal">
+      <div class="chap-num">✦</div>
+      <div>
+        <div class="eyebrow">Todo el libro en una tarjeta</div>
+        <h2>Tu <span class="hl">tarjeta</span></h2>
+        <p class="lead">Se llena en cinco minutos, antes de abrir el material. Si tardas más, quítale campos: el instrumento tiene que costar menos que la sesión que protege.</p>
+      </div>
+    </div>
+
+    <div class="tcard reveal" id="tcard">
+      <div class="tcard-head">
+        <h3>La hoja en blanco · Tarjeta</h3>
+        <div style="display:flex;gap:14px;align-items:center;flex-wrap:wrap" class="no-print">
+          <span class="chrono" id="chrono" title="Tiempo llenando la tarjeta">⏱ 0:00</span>
+          <label class="small" style="display:flex;gap:6px;align-items:center;font-weight:700;cursor:pointer"><input type="checkbox" id="showEx" checked> Ver ejemplo de Matías</label>
+        </div>
+      </div>
+      <div class="tcard-cols"><span>Campo</span><span>Ejemplo (Matías)</span><span>El tuyo</span></div>
+      <div id="tRows"></div>
+    </div>
+    <div class="btn-row reveal">
+      <button class="btn y" id="cardCopy" type="button">Copiar mi tarjeta</button>
+      <button class="btn" id="cardPrint" type="button">Imprimir</button>
+      <button class="btn ghost" id="cardClear" type="button">Vaciar</button>
+      <span class="small muted" id="cardMsg" style="align-self:center"></span>
+    </div>
+    <p class="muted small reveal" style="margin-top:18px">Los cinco primeros campos te sientan en la silla. El campo <b>Cierre</b> protege lo que estudiaste esa noche. El campo <b>Próximo repaso</b> dice cuánto esperas antes de volver.</p>
+  </div>
+</section>
+
+<!-- ================= QUIZ ================= -->
+<section class="dark" id="quiz">
+  <div class="wrap">
+    <div class="reveal" style="text-align:center;margin-bottom:36px">
+      <div class="eyebrow" style="color:var(--y)">Hoja en blanco final</div>
+      <h2>¿Mito o hecho?</h2>
+      <p class="lead" style="margin:14px auto 0">Seis afirmaciones. Responde sin volver a leer: es recuperación de verdad.</p>
+    </div>
+    <div class="mq reveal">
+      <div class="mq-card" id="mqCard" style="color:var(--ink)"></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="brand" style="margin-bottom:26px">
+      <span class="brand-mark" style="width:44px;height:44px;font-size:24px">e</span>
+      <span class="brand-name" style="font-size:24px">Eon <span>Aprende</span></span>
+    </div>
+    <p class="big">Sábado, dos días antes de la prueba.<br>Matías no relee la guía. <em>Saca una hoja en blanco.</em></p>
+    <p class="lead" style="color:var(--muted-d)">No sabe qué nota va a sacar. Sabe qué le falta. Abre tu registro: la próxima fecha ya está ahí. Esta vez no la puso el libro, sino lo que olvidaste.</p>
+    <a class="ig" href="https://www.instagram.com/eonaprende" target="_blank" rel="noopener">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+      @eonaprende
+    </a>
+    <details>
+      <summary>Bibliografía</summary>
+      <ul class="biblio">
+        <li>Franklin, <i>Autobiografía</i>, Parte Segunda (1784).</li>
+        <li>Gollwitzer (1999), <i>American Psychologist</i>, 54(7), 493–503.</li>
+        <li>Gollwitzer y Brandstätter (1997), <i>Journal of Personality and Social Psychology</i>, 73(1), 186–199.</li>
+        <li>Gollwitzer y Sheeran (2006), <i>Advances in Experimental Social Psychology</i>, 38, 69–119.</li>
+        <li>Gollwitzer y Sheeran (2025), <i>Annual Review of Psychology</i>, 76, 303–328.</li>
+        <li>Harkin et al. (2016), <i>Psychological Bulletin</i>, 142(2), 198–229.</li>
+        <li>Ward et al. (2017), <i>Journal of the Association for Consumer Research</i>, 2(2), 140–154.</li>
+        <li>Roediger y Karpicke (2006), <i>Psychological Science</i>, 17(3), 249–255.</li>
+        <li>Butler, Fazio y Marsh (2011), <i>Psychonomic Bulletin &amp; Review</i>, 18(6), 1238–1244.</li>
+        <li>Müller y Pilzecker (1900), <i>Zeitschrift für Psychologie</i>, Ergänzungsband 1, 1–300.</li>
+        <li>Lechner, Squire y Byrne (1999), <i>Learning &amp; Memory</i>, 6(2), 77–87.</li>
+        <li>Martini et al. (2026), <i>Psychonomic Bulletin &amp; Review</i>, 33, art. 15.</li>
+        <li>Humiston et al. (2019), <i>Scientific Reports</i>, 9(1), art. 19345.</li>
+        <li>Seban et al. (2026), <i>Psychological Research</i>, 90, art. 42.</li>
+        <li>van Dongen et al. (2016), <i>Current Biology</i>, 26(13), 1722–1727.</li>
+        <li>Cepeda et al. (2006), <i>Psychological Bulletin</i>, 132(3), 354–380.</li>
+        <li>Cepeda et al. (2008), <i>Psychological Science</i>, 19(11), 1095–1102.</li>
+        <li>Woźniak, P. (s. f.), <i>The true history of spaced repetition</i>. SuperMemo.</li>
+      </ul>
+    </details>
+    <p class="small" style="margin-top:30px;color:var(--muted-d)">© Eon Aprende · La hoja en blanco</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const store={get(k,d){try{const v=localStorage.getItem('eon-hoja-'+k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem('eon-hoja-'+k,JSON.stringify(v))}catch(e){}}};
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+/* progreso + nav activa */
+const prog=$('#progress'), navLinks=$$('.chips a');
+const secIds=navLinks.map(a=>a.getAttribute('href').slice(1));
+function onScroll(){
+  const h=document.documentElement; prog.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';
+  let cur=null; secIds.forEach(id=>{const el=document.getElementById(id); if(el&&el.getBoundingClientRect().top<140) cur=id;});
+  navLinks.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+cur));
+}
+addEventListener('scroll',onScroll,{passive:true}); onScroll();
+
+/* reveal + barras + contadores */
+function fillBars(root){$$('.fill',root).forEach(f=>f.style.width=f.dataset.w+'%')}
+function countUp(el){const t=+el.dataset.count,d=1200,s=performance.now();(function f(n){const p=Math.min((n-s)/d,1);el.textContent=Math.round(t*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(f)})(s)}
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;const t=e.target;
+  t.classList.add('in'); if(t.matches('[data-bars]'))fillBars(t); $$('[data-bars]',t).forEach(fillBars);
+  if(t.dataset.count)countUp(t); $$('[data-count]',t).forEach(countUp); io.unobserve(t);}),{threshold:.18});
+$$('.reveal,[data-bars],.hero-stats').forEach(el=>io.observe(el));
+$$('[data-count]').forEach(el=>{if(!el.closest('.reveal')&&!el.closest('.hero-stats'))io.observe(el)});
+
+/* hoja del hero: escritura */
+const lines=[["Tema: intervalo de confianza",0],["Definición… ✓",0],["¿Por qué se ensancha?",0],["no sé",1],["→ revisar y corregir",0],["repaso: en 4 días",0]];
+(async function write(){
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  for(let loop=0;;loop++){
+    for(let i=0;i<lines.length;i++){const el=$('#l'+(i+1));el.innerHTML='';}
+    for(let i=0;i<lines.length;i++){
+      const el=$('#l'+(i+1)),[txt,cross]=lines[i];
+      if(reduce){el.textContent=txt;if(cross)el.classList.add('cross');continue}
+      const span=document.createElement('span'),car=document.createElement('span');car.className='caret';el.append(span,car);
+      for(const ch of txt){span.textContent+=ch;await new Promise(r=>setTimeout(r,55+Math.random()*60));}
+      car.remove(); if(cross){await new Promise(r=>setTimeout(r,300));span.classList.add('cross')}
+      await new Promise(r=>setTimeout(r,350));
+    }
+    if(reduce)return;
+    await new Promise(r=>setTimeout(r,4500));
+    $$('.sheet .cross').forEach(x=>x.classList.remove('cross'));
+  }
+})();
+
+/* quiz objetivo */
+$$('#goalQuiz .opt').forEach(b=>b.addEventListener('click',()=>{
+  $$('#goalQuiz .opt').forEach(o=>o.classList.remove('right','wrong'));
+  b.classList.add(b.dataset.ok==='1'?'right':'wrong');
+  if(b.dataset.ok!=='1')$('#goalQuiz .opt[data-ok="1"]').classList.add('right');
+  $('#goalFb').classList.add('show');
+}));
+
+/* verificador de objetivos */
+const goodVerbs=/\b(explic|resolv|resuelv|reconstru|enumer|escrib|dibuj|demostr|respond|calcul|resum|defin|deriv|traduc|recit|nombr|list|complet|dig[oa]|decir|conjug|redact|diagram|esquematiz|compar|clasific|identific|justific|aplic)/i;
+const badVerbs=/\b(repas|estudi|leer|le[oí]|revis|ver\b|mirar|avanz|ponerme al d|entender|practicar un poco|trabajar en|hojear|ojear)/i;
+const qty=/\b(\d+|un[oa]?|dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez|once|doce|todas?|todos)\b/i;
+const timeOnly=/\b(\d+\s*(h|hs|horas?|min|minutos?)|una hora|media hora|dos horas|tres horas|toda la tarde|toda la noche)\b/i;
+function setIc(k,s){const ic=$(`#goalChecks .ic[data-c="${k}"]`);ic.className='ic'+(s===true?' ok':s===false?' no':'');ic.textContent=s===true?'✓':s===false?'✕':'?';}
+$('#goalIn').addEventListener('input',e=>{
+  const v=e.target.value.trim(),V=$('#goalVerdict');
+  if(!v){['verb','qty','time'].forEach(k=>setIc(k,null));V.className='verdict';V.textContent='Si al releerlo no puedes decir cómo se ve terminado, todavía no tienes un objetivo, tienes una intención.';return}
+  const g=goodVerbs.test(v), b=badVerbs.test(v)&&!g, t=timeOnly.test(v), q=qty.test(v.replace(timeOnly,''));
+  setIc('verb',g?true:(b?false:null)); setIc('qty',q); setIc('time',!t);
+  if(g&&q&&!t){V.className='verdict good';V.innerHTML='<b>Esto es un objetivo.</b> Tiene final: al terminar la sesión sabrás si lo cumpliste o no.';}
+  else if(t){V.className='verdict';V.innerHTML='<b>El tiempo no es un objetivo, es un contenedor.</b> "Estudiar dos horas" se cumple estando sentado. ¿Qué vas a poder mostrar al final?';}
+  else if(b){V.className='verdict';V.innerHTML='<b>Ese verbo no termina nunca.</b> Cámbialo por uno con desenlace: explicar, resolver, reconstruir, enumerar…';}
+  else if(!q){V.className='verdict';V.innerHTML='<b>Falta la cantidad.</b> ¿Cuántos ejercicios, conceptos o etapas?';}
+  else {V.className='verdict';V.innerHTML='Casi. Usa un verbo cuyo final se pueda verificar: <i>explicar sin el texto delante, resolver seis ejercicios, reconstruir el esquema en una hoja en blanco</i>.';}
+});
+
+/* si-entonces */
+const vague=/(ganas|energ[ií]a|tiempo|pueda|motivad|inspirad|después|luego|m[aá]s tarde|alg[uú]n)/i;
+[0,1,2].forEach(i=>$('#it'+i).addEventListener('input',()=>{
+  let anyVague=false,filled=0;
+  [0,1,2].forEach(j=>{const v=$('#it'+j).value.trim(),s=$(`#ifthen .slot[data-s="${j}"]`);
+    s.textContent=v||'___'; s.className='slot'+(v?'':' empty'); if(v)filled++;
+    if(v&&j===0&&vague.test(v)){s.classList.add('vague');anyVague=true}});
+  const V=$('#itVerdict');
+  if(anyVague){V.className='verdict';V.innerHTML='<b>"Cuando tenga ganas" no es una señal, es una negociación.</b> Usa una hora o un evento que ocurra siempre: "cuando termino de lavar los platos".';}
+  else if(filled===3){V.className='verdict good';V.innerHTML='<b>Cita puesta.</b> El jueves ya no decides nada: solo haces lo que quedó decidido. Ahora saca el teléfono de la habitación.';}
+  else {V.className='verdict';V.textContent='Si alguno de los tres espacios te sale vago, esa vaguedad es la que vas a negociar contigo el jueves a las siete.';}
+}));
+
+/* registro */
+const days=['Lun','Mar','Mié','Jue','Vie','Sáb','Dom'];
+let log=store.get('log',days.map(()=>['','']));
+const tb=$('#log tbody');
+function renderLog(){
+  tb.innerHTML=days.map((d,i)=>`<tr><td>${d}</td><td><input inputmode="numeric" type="number" min="0" data-i="${i}" data-k="0" value="${esc(log[i][0])}" aria-label="Propuesto ${d}"></td><td><input inputmode="numeric" type="number" min="0" data-i="${i}" data-k="1" value="${esc(log[i][1])}" aria-label="Cumplido ${d}"></td></tr>`).join('');
+  sumLog();
+}
+function sumLog(){
+  let p=0,c=0;log.forEach(r=>{p+=+r[0]||0;c+=+r[1]||0});
+  $('#sumP').textContent=p;$('#sumC').textContent=c;$('#sumR').textContent=p?Math.round(c/p*100)+'%':'—';
+}
+tb.addEventListener('input',e=>{const t=e.target;if(!t.dataset.i)return;log[t.dataset.i][t.dataset.k]=t.value;store.set('log',log);sumLog()});
+$('#logClear').addEventListener('click',()=>{log=days.map(()=>['',''])
+;store.set('log',log);renderLog()});
+renderLog();
+
+/* timeline Matías */
+const tl=[
+ ['Antes','Once días con "estudiar Estadística" en la lista y una certeza incómoda: la prueba era en tres semanas y no podía nombrar una sola cosa aprendida desde el lunes anterior.'],
+ ['La tarjeta','Explicar en voz alta qué es un intervalo de confianza y resolver tres ejercicios del tipo 4.2 sin mirar apuntes. <b>Jueves, 19:00 a 20:00, mesa de la cocina.</b> Primera acción: abrir la guía en la página 41. Teléfono en el dormitorio, puerta cerrada.'],
+ ['Semana 1','Llegó tarde del trabajo y <b>recortó</b>: un ejercicio en lugar de tres, a la misma hora y en la misma mesa. Podía definir el concepto, pero no justificar por qué el intervalo se ensancha al subir el nivel de confianza, y lo anotó como objetivo del viernes. Al séptimo día, el registro dijo que su capacidad real era de <b>dos por hora, no cinco</b>. No era flojo: planificaba para un estudiante que no existía.'],
+ ['Semanas 2 y 3','No cumplió <b>ninguna</b> sesión. Había cambiado de turno y las 19:00 ya no existían. Movió la cita a las 21:30, en la misma mesa, y volvió a cumplir.'],
+ ['La regla','Dos semanas en cero no son un veredicto sobre ti: son un dato sobre la cita. Una semana mala se recorta. Dos semanas malas significan que la señal dejó de existir y hay que ponerle otra, mejor anclada a un evento que a un reloj. <b>Lo que no se hace nunca es seguir apuntando a una hora en la que ya demostraste que no estás.</b>']
+];
+function showTl(i){$$('#tlTabs button').forEach(b=>b.classList.toggle('on',+b.dataset.i===i));
+  $('#tlBody').innerHTML=`<div style="animation:fadeUp .4s"><h4>${tl[i][0]}</h4><p class="lead" style="margin-top:6px">${tl[i][1]}</p></div>`;}
+$$('#tlTabs button').forEach(b=>b.addEventListener('click',()=>showTl(+b.dataset.i))); showTl(0);
+
+/* Roediger & Karpicke */
+let rkStage=0;
+$$('#rkOpts .opt').forEach(b=>b.addEventListener('click',()=>{
+  const fb=$('#rkFb');
+  if(rkStage===0){
+    $$('#rkOpts .opt').forEach(o=>o.classList.remove('right','wrong'));
+    $('#rkOpts .opt[data-a="read"]').classList.add('right'); if(b.dataset.a==='write')b.classList.add('wrong');
+    fb.innerHTML='<b>A los 5 minutos ganaron los que releyeron.</b> Por eso releer se siente tan bien. Ahora la pregunta que importa:';
+    fb.classList.add('show'); rkStage=1;
+    setTimeout(()=>{$('#rkQ').textContent='¿Y una semana después?';$$('#rkOpts .opt').forEach(o=>o.classList.remove('right','wrong'));},1600);
+  } else {
+    $$('#rkOpts .opt').forEach(o=>o.classList.remove('right','wrong'));
+    $('#rkOpts .opt[data-a="write"]').classList.add('right'); if(b.dataset.a==='read')b.classList.add('wrong');
+    fb.innerHTML='<b>El resultado se invirtió.</b> Rindieron peor y se sentían mejor preparados.';
+    const c=$('#rkChart');c.style.display='block';requestAnimationFrame(()=>fillBars(c)); rkStage=2;
+  }
+}));
+
+/* escalera */
+const ladderMsgs=['','Solo reconoces. Es el peldaño que la letra grande imita: se siente como saber, pero con el material delante no puedes comprobarlo.','Recuperas con el libro cerrado. Bien, pero cuidado: si salen las palabras exactas del texto, estás fabricando la misma facilidad engañosa con un método mejor.','Lo explicas con tus palabras. Todavía vives dentro del texto: el siguiente peldaño es el más barato de comprobar y el que más gente se salta.','Tienes un ejemplo propio: despegaste el concepto de las frases con que lo aprendiste. Recuperaste la idea, no solo la frase.','Lo usas en un problema que nadie te preparó. Eso es saber.'];
+$$('#ladder .step').forEach(s=>s.addEventListener('click',()=>{const l=+s.dataset.l;
+  $$('#ladder .step').forEach(x=>x.classList.toggle('lit',+x.dataset.l<=l));
+  const m=$('#ladderMsg');m.className='verdict ladder-msg'+(l>=4?' good':'');m.textContent=ladderMsgs[l];}));
+
+/* stepper sesión */
+const sess=[
+ ['PREGUNTA','Escribe una o dos preguntas en la primera línea de una hoja nueva.'],
+ ['LEE','Busca esas respuestas. Esto todavía no es estudiar.'],
+ ['RECUPERA','Cierra todo. Diez minutos, media página, de memoria, con tus palabras. Si solo llenaste tres renglones, no releas el capítulo entero: lee lo que no pudiste escribir, cierra otra vez y escribe solo eso.'],
+ ['CORRIGE','Vuelve al texto, marca qué faltó y qué estaba mal, y anota <b>por qué creías otra cosa</b>. Es el paso que vas a querer saltarte, y el que hace rendir todo lo demás.'],
+ ['TRANSFIERE','Busca un ejemplo que no esté en el material. Si no se te ocurre ninguno, recuperaste la frase y no la idea.']
+];
+$('#sessSteps').innerHTML=sess.map((s,i)=>`<button data-i="${i}" type="button"><small>Paso ${i+1}</small>${s[0]}</button>`).join('');
+function showSess(i){$$('#sessSteps button').forEach(b=>b.classList.toggle('on',+b.dataset.i===i));
+  $('#sessPanel').innerHTML=`<div style="animation:fadeUp .35s"><h4>${sess[i][0]}</h4><p style="font-size:17px">${sess[i][1]}</p></div>`;}
+$$('#sessSteps button').forEach(b=>b.addEventListener('click',()=>showSess(+b.dataset.i))); showSess(0);
+
+/* apuesta Müller */
+$('#bet').addEventListener('input',e=>{$('#betV').textContent=e.target.value});
+$('#betGo').addEventListener('click',()=>{
+  const v=+$('#bet').value,bb=$('#betBar');bb.dataset.w=v;bb.textContent=v+'%';
+  const r=$('#betRes');r.style.display='block';$$('.fill',r).forEach(f=>f.style.width=0);
+  requestAnimationFrame(()=>requestAnimationFrame(()=>fillBars(r)));
+  const d=Math.abs(v-24);
+  $('#betFb').innerHTML=(d<=5?'<b>¡Muy cerca!</b> ':v>24?'<b>Fuiste optimista.</b> ':'<b>Fuiste pesimista.</b> ')+'Recordaron el 24%: menos de la mitad, por culpa de tres paisajes.';
+});
+
+/* ranking Innsbruck */
+let rankNext=1;
+$$('#rankOpts .opt').forEach(b=>b.addEventListener('click',()=>{
+  if(b.classList.contains('right'))return;
+  const r=+b.dataset.r;
+  if(r===rankNext){b.classList.add('right');b.querySelector('.k').textContent=r;rankNext++;if(rankNext>3)$('#rankFb').classList.add('show');}
+  else{b.classList.add('wrong');setTimeout(()=>b.classList.remove('wrong'),600);}
+}));
+
+/* temporizador */
+const C=326.73; let tTotal=2400,tLeft=2400,tInt=null,tMode='study',urge=0,tEnd=0;
+const fmt=s=>Math.floor(s/60)+':'+String(s%60).padStart(2,'0');
+function drawT(){$('#tTime').textContent=fmt(tLeft);$('#dialFg').style.strokeDashoffset=C*(1-tLeft/tTotal);
+  const steps=$$('#pSteps li');steps.forEach(l=>l.classList.remove('on'));
+  if(tMode==='pause'){steps[tLeft>tTotal-90?1:2].classList.add('on')} else if(tLeft===0){steps[0].classList.add('on')}}
+function beep(){try{const a=new (window.AudioContext||window.webkitAudioContext)();[0,.35,.7].forEach(t=>{const o=a.createOscillator(),g=a.createGain();o.frequency.value=880;o.connect(g);g.connect(a.destination);g.gain.setValueAtTime(.2,a.currentTime+t);g.gain.exponentialRampToValueAtTime(.001,a.currentTime+t+.3);o.start(a.currentTime+t);o.stop(a.currentTime+t+.3)})}catch(e){}}
+function stopT(){clearInterval(tInt);tInt=null;$('#tStart').textContent='▶ Empezar'}
+$('#tStart').addEventListener('click',()=>{
+  if(tInt){stopT();return}
+  if(tLeft===0)tLeft=tTotal;
+  tEnd=Date.now()+tLeft*1000;$('#tStart').textContent='❚❚ Pausar';
+  tInt=setInterval(()=>{tLeft=Math.max(0,Math.round((tEnd-Date.now())/1000));drawT();
+    if(tLeft===0){stopT();beep();
+      if(tMode==='study'){$('#tLbl').textContent='¡Cierra!';}
+      else{$$('#pSteps li').forEach(l=>l.classList.remove('on'));$$('#pSteps li')[3].classList.add('on');$('#tLbl').textContent='Sigue';}}},250);
+  drawT();
+});
+$('#tReset').addEventListener('click',()=>{stopT();tLeft=tTotal;$('#tLbl').textContent=tMode==='study'?'Sesión':'Pausa';drawT()});
+$$('#modes button').forEach(b=>b.addEventListener('click',()=>{stopT();$$('#modes button').forEach(x=>x.classList.toggle('on',x===b));
+  tMode=b.dataset.m;tTotal=tLeft=+b.dataset.s;$('#tLbl').textContent=tMode==='study'?'Sesión':'Pausa';drawT()}));
+$('#urgeBtn').addEventListener('click',()=>{urge++;$('#urgeN').textContent=urge});
+drawT();
+
+/* repetición espaciada */
+function addDays(d,n){const x=new Date(d);x.setDate(x.getDate()+n);return x}
+const fmtDate=d=>d.toLocaleDateString('es',{weekday:'long',day:'numeric',month:'long'});
+function calcSp(){
+  const days=Math.max(1,+$('#spDays').value||1),miss=+$('#spMiss').value; $('#spMissV').textContent=miss;
+  let zone,next,why,z;
+  if(miss===0){zone='Esperaste poco';z=0;next=days*2;why='No olvidaste nada, así que la hoja no te mostró nada. Se siente como un éxito, y por eso engaña. Una hoja perfecta no significa «terminé»: significa «puedes esperar más».';}
+  else if(miss<=2){zone='Esperaste bien';z=1;next=days*2;why='Olvidaste un poco, y ese poco te muestra dónde está el error. Es la espera justa: la próxima vez, el doble.';}
+  else {zone='Esperaste demasiado';z=2;next=Math.max(1,Math.round(days/2));why='Olvidaste demasiado. Estudia primero lo que faltó y acorta la próxima espera a la mitad.';}
+  $$('#zones div').forEach(d=>d.classList.toggle('on',+d.dataset.z===z));
+  const today=new Date();today.setHours(0,0,0,0); let date=addDays(today,next), note='';
+  const ex=$('#spExam').value;
+  if(ex){const e=new Date(ex+'T00:00:00');if(date>=e){const nd=addDays(e,-2);if(nd>today){date=nd;next=Math.round((nd-today)/864e5);note=' · ajustado a 2 días antes de la prueba';}else{note=' · la prueba está muy cerca: repasa hoy';date=today;next=0}}}
+  $('#spZone').textContent=zone;
+  $('#spNext').textContent=next===0?'Repasa hoy':'Próxima espera: '+next+(next===1?' día':' días');
+  $('#spDate').textContent=(next===0?'':'Anota: '+fmtDate(date))+note;
+  $('#spWhy').textContent=why;
+}
+['spDays','spMiss','spExam'].forEach(id=>$('#'+id).addEventListener('input',calcSp));
+$$('#cases button').forEach(b=>b.addEventListener('click',()=>{$('#spDays').value=b.dataset.d;$('#spMiss').value=b.dataset.m;calcSp()}));
+calcSp();
+
+/* cómo se arruina */
+const ruin=[
+ [['Perfeccionismo','El hacha moteada de Franklin','Si tu objetivo exige cumplimiento perfecto, dejaste de medir capacidad y armaste una <b>máquina de generar culpa</b>.'],
+  ['Territorio desconocido','Un blanco elegido a ciegas','Si todavía no sabes qué necesitas aprender, el final observable son <b>tres preguntas escritas</b>, no tres respuestas. La hora, el lugar y el cierre no se mueven.'],
+  ['El instrumento se vuelve el trabajo','La tablilla de marfil','Si la tarjeta toma más tiempo que la sesión, <b>es el escondite</b>. Cronométrate: si pasas de 5 minutos, quítale campos.']],
+ [['Recuperar antes de leer','Hoja vacía','Una hoja en blanco que sigue en blanco <b>no tiene nada que corregir</b>.'],
+  ['Recuperar sin corregir','A la cama tranquilo','Practicas tus propios errores <b>con el mejor método disponible</b>.'],
+  ['Recuperar textualmente','Los alumnos de Río','Reproduces las palabras y no tocas el concepto. <b>Es la única que no se nota desde dentro.</b>']],
+ [['Releer la guía entera','La pausa se vuelve sesión','Relee <b>una vez tu hoja corregida</b>, no el material completo.'],
+  ['"Solo un minuto" de teléfono','Información nueva','Trae justo lo que la pausa existe para evitar: <b>algo que exige tu atención con fuerza</b>.'],
+  ['Saltarla por apuro','La noche que más la necesitas','Justo cuando apilas dos materias parecidas, como Estadística y Cálculo. <b>Esas noches, la pausa no se negocia.</b>']],
+ [['Todo el mismo día','El domingo de ocho temas','Las fechas chocan y abandonas a las dos semanas. <b>Si un día junta más de tres hojas, adelanta las que sobran.</b> Adelantar cuesta un poco de información; atrasar, el tema.'],
+  ['Fechas a ciegas','Sin contar','Si no cuentas qué olvidaste, <b>no sabes si esperaste bien</b>, y la próxima espera vuelve a ser al azar.'],
+  ['Dejar de volver','La hoja perfecta','Una hoja perfecta no significa «terminé». <b>Significa «puedes esperar más».</b>']]
+];
+function showRuin(c){$$('#ruinTabs button').forEach(b=>b.classList.toggle('on',+b.dataset.c===c));
+  $('#ruinCards').innerHTML=ruin[c].map((r,i)=>`<button class="flip" type="button" aria-label="${esc(r[0])}: dar vuelta"><div class="flip-in"><div class="flip-f"><div><div class="tag">Error ${i+1}</div><div class="big">${r[0]}</div></div><div class="hint">${r[1]} · toca para ver ↻</div></div><div class="flip-b"><p>${r[2]}</p><span class="small" style="opacity:.6">¿Es la tuya? Escríbela al pie de tu tarjeta.</span></div></div></button>`).join('');
+  $$('#ruinCards .flip').forEach(f=>f.addEventListener('click',()=>f.classList.toggle('on')));}
+$$('#ruinTabs button').forEach(b=>b.addEventListener('click',()=>showRuin(+b.dataset.c))); showRuin(0);
+
+/* tarjeta */
+const fields=[
+ ['Objetivo','verbo + cantidad','Explicar qué es un intervalo de confianza y resolver un ejercicio del tipo 4.2, sin apuntes'],
+ ['Cuándo','hora o evento','Jueves 21:30'],
+ ['Dónde','',"Mesa de la cocina"],
+ ['Primera acción','solo una','Abrir la guía en la página 41'],
+ ['Teléfono','',"Dormitorio, cargando, puerta cerrada"],
+ ['Cierre','','Alarma 40 min → hoja en blanco → corrección → pausa de 7 min'],
+ ['Próximo repaso','','Ocho días']
+];
+let card=store.get('card',fields.map(()=>''));
+$('#tRows').innerHTML=fields.map((f,i)=>`<div class="tcard-row"><div class="fk">${f[0]}${f[1]?`<small>${f[1]}</small>`:''}</div><div class="ex">${f[2]}</div><div><textarea rows="1" data-i="${i}" aria-label="${f[0]}, el tuyo" placeholder="El tuyo…">${esc(card[i])}</textarea></div></div>`).join('');
+let chStart=null,chInt=null;
+$('#tRows').addEventListener('focusin',()=>{if(chStart)return;chStart=Date.now();chInt=setInterval(()=>{const s=Math.floor((Date.now()-chStart)/1000),c=$('#chrono');c.textContent='⏱ '+fmt(s)+(s>300?' · más de 5 min: quita campos':'');c.classList.toggle('warn',s>300);},1000)});
+$('#tRows').addEventListener('input',e=>{const t=e.target;if(t.dataset.i==null)return;card[t.dataset.i]=t.value;store.set('card',card);
+  if(card.every(v=>v.trim())&&chInt){clearInterval(chInt);chInt=null;$('#chrono').textContent+=' ✓';}});
+$('#showEx').addEventListener('change',e=>$('#tcard').classList.toggle('hide-ex',!e.target.checked));
+const msg=t=>{$('#cardMsg').textContent=t;setTimeout(()=>$('#cardMsg').textContent='',2500)};
+$('#cardCopy').addEventListener('click',()=>{
+  const txt='LA HOJA EN BLANCO · Mi tarjeta (Eon Aprende)\n'+fields.map((f,i)=>`${f[0]}: ${card[i]||'—'}`).join('\n');
+  (navigator.clipboard?navigator.clipboard.writeText(txt):Promise.reject()).then(()=>msg('Copiada ✓'),()=>msg('No se pudo copiar'));
+});
+$('#cardPrint').addEventListener('click',()=>{document.body.classList.add('print-card');window.print();setTimeout(()=>document.body.classList.remove('print-card'),500)});
+$('#cardClear').addEventListener('click',()=>{card=fields.map(()=>'');store.set('card',card);$$('#tRows textarea').forEach(t=>t.value='');chStart=null;clearInterval(chInt);chInt=null;$('#chrono').textContent='⏱ 0:00';$('#chrono').classList.remove('warn')});
+
+/* quiz mito/hecho */
+const Q=[
+ ['Leer algo con facilidad es una buena señal de que ya lo sabes.',false,'Mito. La facilidad engaña: la letra grande hizo sentir que recordarían más, y recordaron igual. Familiar no es lo mismo que sabido.'],
+ ['"Estudiar dos horas" es un buen objetivo para una sesión.',false,'Mito. El tiempo es un contenedor, no un objetivo: se cumple estando sentado. Un objetivo termina en algo que puedes verificar.'],
+ ['Los errores de los que estabas muy seguro son los que mejor se corrigen, si después ves la respuesta correcta.',true,'Hecho. Se llama hipercorrección. La seguridad no te dice si tienes razón; te dice dónde mirar.'],
+ ['Justo después de estudiar Estadística conviene pasar directo a Cálculo para aprovechar la noche.',false,'Mito. Es tinta fresca: lo nuevo que exige atención daña lo anterior, sobre todo si se parece. Relee tu hoja y haz la pausa de 7 minutos.'],
+ ['Si la hoja de repaso te sale perfecta, la próxima vez puedes esperar más.',true,'Hecho. Una hoja perfecta no significa «terminé». Significa «puedes esperar más»: el doble.'],
+ ['Dejar el teléfono boca abajo sobre la mesa es suficiente.',false,'Mito. El gesto correcto es dejarlo cargando en otra habitación, con la puerta cerrada. Proteges la sesión de interrupciones reales.']
+];
+let qi=0,res=[];
+function renderQ(){
+  const c=$('#mqCard'),dots=Q.map((_,i)=>`<i class="${res[i]===true?'ok':res[i]===false?'no':''}"></i>`).join('');
+  if(qi>=Q.length){const ok=res.filter(Boolean).length;
+    c.innerHTML=`<div class="mq-meta"><span>Resultado</span><span class="mq-dots">${dots}</span></div><div class="mq-q">${ok} de ${Q.length}</div><p style="margin-top:12px">${ok===Q.length?'Hoja completa. Ahora espera unos días y vuelve: si sigue perfecta, espera el doble.':ok>=4?'Te faltaron '+(Q.length-ok)+'. Justo lo que la hoja en blanco debe mostrarte: marca esos puntos y vuelve a ellos.':'Buen material para corregir. Relee solo lo que fallaste, cierra y vuelve a intentarlo.'}</p><div class="mq-btns"><button class="btn y" id="mqAgain" type="button">Repetir</button></div>`;
+    $('#mqAgain').onclick=()=>{qi=0;res=[];renderQ()};return}
+  c.innerHTML=`<div class="mq-meta"><span>Pregunta ${qi+1} / ${Q.length}</span><span class="mq-dots">${dots}</span></div><div class="mq-q">${Q[qi][0]}</div><div class="mq-btns" id="mqB"><button class="btn" data-a="1" type="button">Hecho</button><button class="btn ghost" data-a="0" type="button">Mito</button></div><div class="feedback" id="mqFb"></div>`;
+  $$('#mqB .btn').forEach(b=>b.onclick=()=>{
+    const ok=(b.dataset.a==='1')===Q[qi][1];res[qi]=ok;
+    $('#mqFb').innerHTML=`<p><b style="color:${ok?'var(--ok)':'var(--bad)'}">${ok?'¡Correcto!':'No exactamente.'}</b> ${Q[qi][2]}</p><div class="mq-btns"><button class="btn y" id="mqNext" type="button">Siguiente →</button></div>`;
+    $('#mqFb').classList.add('show');$('#mqB').style.display='none';
+    $('#mqNext').onclick=()=>{qi++;renderQ()};
+  });
+}
+renderQ();
+})();
+</script>
+</body>
+</html>
